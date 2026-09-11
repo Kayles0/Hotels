@@ -1,13 +1,14 @@
 package com.kayles.hotels.dto.informationDto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
 @Builder
 public record AddressDto (
 
-        @NotBlank(message = "The house number should not be empty")
+        @NotNull(message = "The house number should not be empty")
         Long houseNumber,
 
         @NotBlank(message = "The street should not be empty")
