@@ -1,6 +1,7 @@
 package com.kayles.hotels.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
@@ -8,12 +9,11 @@ import lombok.Builder;
 @Builder
 public record HotelShortDto(
 
-        @NotBlank(message = "The id should not be empty")
+        @NotNull(message = "The id should not be empty")
         Long id,
 
         @NotBlank(message = "The name should not be empty")
         @Size(min = 2, max = 40, message = "The name must contain from 2 to 40 characters")
-        @Size
         String name,
 
         String description,

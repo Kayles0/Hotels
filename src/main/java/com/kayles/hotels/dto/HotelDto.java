@@ -6,6 +6,7 @@ import com.kayles.hotels.dto.informationDto.ContactsDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Builder
 public record HotelDto (
-        @NotBlank(message = "The id should not be empty")
+        @NotNull(message = "The id should not be empty")
         Long id,
 
         @NotBlank(message = "The name should not be empty")

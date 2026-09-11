@@ -23,8 +23,8 @@ public record AddressDto (
         @Size(min = 2, max = 40, message = "The country must contain from 2 to 40 characters")
         String country,
 
-        @NotBlank(message = "The name should not be empty")
-        @Size(min = 3, max = 10, message = "The name must contain from 3 to 10 characters")
+        @NotBlank(message = "The post code should not be empty")
+        @Size(min = 3, max = 10, message = "The post code must contain from 3 to 10 characters")
         String postCode
 ) {
 }
