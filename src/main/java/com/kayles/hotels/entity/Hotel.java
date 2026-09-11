@@ -10,7 +10,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "hotels")
@@ -46,6 +48,6 @@ public class Hotel {
     @CollectionTable(name = "hotel_amenities", joinColumns = @JoinColumn(name = "hotel_id"))
     @Column(name = "amenities_name")
     @Builder.Default
-    private List<String> amenities = new ArrayList<>();
+    private Set<String> amenities = new HashSet<>();
 
 }

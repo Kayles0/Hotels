@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
 import java.util.List;
+import java.util.Set;
 
 @Builder
 public record HotelDto (
@@ -36,6 +37,6 @@ public record HotelDto (
         ArrivalTimeDto arrivalTime,
 
         @NotEmpty(message = "Amenities list should not be empty")
-        List<@NotBlank(message = "Each amenity must not be blank") String> amenities
+        Set<@NotBlank(message = "Each amenity must not be blank") String> amenities
 ) {
 }
