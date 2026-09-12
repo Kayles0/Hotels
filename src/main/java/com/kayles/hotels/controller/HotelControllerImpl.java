@@ -27,39 +27,33 @@ public class HotelControllerImpl implements HotelController {
     private final HotelService hotelService;
 
     @Override
-    public ResponseEntity<Page<HotelShortDto>> getAllHotels(
-            @PageableDefault(size = 10) Pageable pageable) {
+    public ResponseEntity<Page<HotelShortDto>> getAllHotels(Pageable pageable) {
         return ResponseEntity.ok(hotelService.readAllHotels(pageable));
     }
 
     @Override
-    public ResponseEntity<HotelDto> getHotelById(@NotNull(message = "Hotel ID must not be null") Long id) {
+    public ResponseEntity<HotelDto> getHotelById(Long id) {
         return ResponseEntity.ok(hotelService.readHotelById(id));
     }
 
     @Override
-    public ResponseEntity<List<HotelShortDto>> searchHotels(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String brand,
-            @RequestParam(required = false) String city,
-            @RequestParam(required = false) String country,
-            @RequestParam(required = false) Set<String> amenities) {
+    public ResponseEntity<List<HotelShortDto>> searchHotels(String name, String brand, String city,
+                                                            String country, Set<String> amenities) {
         return ResponseEntity.ok(hotelService.searchHotels(name, brand, city, country, amenities));
     }
 
     @Override
-    public ResponseEntity<HotelShortDto> createHotel(@Valid @RequestBody  @NotNull(message = "Request body must not be null") HotelCreateDto dto) {
+    public ResponseEntity<HotelShortDto> createHotel(HotelCreateDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(hotelService.createHotel(dto));
     }
 
     @Override
-    public ResponseEntity<HotelDto> addAmenities(@NotNull(message = "Hotel ID must not be null") Long id,
-                                                 @RequestBody @NotNull(message = "Amenities list must not be null") Set<String> amenities) {
+    public ResponseEntity<HotelDto> addAmenities(Long id, Set<String> amenities) {
         return ResponseEntity.ok(hotelService.addAmenities(id, amenities));
     }
 
     @Override
-    public ResponseEntity<Map<String, Long>> getHistogram(@NotNull(message = "Parameter must not be null") String param) {
+    public ResponseEntity<Map<String, Long>> getHistogram(String param) {
         return ResponseEntity.ok(hotelService.getHistogram(param));
     }
 }
