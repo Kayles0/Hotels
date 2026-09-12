@@ -1,0 +1,101 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-insert-initial-hotels
+      author: Kayles
+      changes:
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, value: 1 }
+              - column: { name: name, value: Grand Hotel }
+              - column: { name: description, value: Luxury hotel in the city center }
+              - column: { name: brand, value: Hilton }
+              - column: { name: house_number, valueNumeric: 10 }
+              - column: { name: street, value: Independence Avenue }
+              - column: { name: city, value: Minsk }
+              - column: { name: country, value: Belarus }
+              - column: { name: post_code, value: "220030" }
+              - column: { name: phone, value: "+375291234567" }
+              - column: { name: email, value: grand@hilton.com }
+              - column: { name: check_in, value: "14:00:00" }
+              - column: { name: check_out, value: "12:00:00" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, value: 2 }
+              - column: { name: name, value: Cozy Inn }
+              - column: { name: description, value: Small and comfortable place }
+              - column: { name: brand, value: Local }
+              - column: { name: house_number, valueNumeric: 5 }
+              - column: { name: street, value: Nemiga Street }
+              - column: { name: city, value: Minsk }
+              - column: { name: country, value: Belarus }
+              - column: { name: post_code, value: "220030" }
+              - column: { name: phone, value: "+375297654321" }
+              - column: { name: email, value: cozy@inn.com }
+              - column: { name: check_in, value: "15:00:00" }
+              - column: { name: check_out, value: "11:00:00" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, value: 3 }
+              - column: { name: name, value: Seaside Resort }
+              - column: { name: description, value: Beautiful view and spa }
+              - column: { name: brand, value: Marriott }
+              - column: { name: house_number, valueNumeric: 15 }
+              - column: { name: street, value: Gogol Street }
+              - column: { name: city, value: Brest }
+              - column: { name: country, value: Belarus }
+              - column: { name: post_code, value: "224000" }
+              - column: { name: phone, value: "+375291112233" }
+              - column: { name: email, value: seaside@marriott.com }
+              - column: { name: check_in, value: "14:00:00" }
+              - column: { name: check_out, value: "12:00:00" }
+
+  - changeSet:
+      id: 003-insert-initial-amenities
+      author: Kayles
+      changes:
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 1 }
+              - column: { name: amenities_name, value: wifi }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 1 }
+              - column: { name: amenities_name, value: pool }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 1 }
+              - column: { name: amenities_name, value: spa }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 2 }
+              - column: { name: amenities_name, value: wifi }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 3 }
+              - column: { name: amenities_name, value: spa }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 3 }
+              - column: { name: amenities_name, value: gym }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 3 }
+              - column: { name: amenities_name, value: pool }
+
+  - changeSet:
+      id: 003-insert-initial-counter
+      author: Kayles
+      dbms: h2
+      changes:
+        - sql:
+            sql: ALTER TABLE hotels ALTER COLUMN id RESTART WITH 4
