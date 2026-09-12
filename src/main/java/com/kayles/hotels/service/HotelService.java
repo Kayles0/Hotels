@@ -24,5 +24,5 @@ public interface HotelService {
 
     Map<String, Long> getHistogram(String param);
 
-    List<HotelShortDto> searchHotels(String name, String brand, String city, String country, Set<String> amenities);
+    Page<HotelShortDto> searchHotels(String name, String brand, String city, String country, Set<String> amenities, Pageable pageable);
 }

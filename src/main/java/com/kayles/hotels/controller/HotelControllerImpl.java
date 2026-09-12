@@ -37,9 +37,9 @@ public class HotelControllerImpl implements HotelController {
     }
 
     @Override
-    public ResponseEntity<List<HotelShortDto>> searchHotels(String name, String brand, String city,
-                                                            String country, Set<String> amenities) {
-        return ResponseEntity.ok(hotelService.searchHotels(name, brand, city, country, amenities));
+    public ResponseEntity<Page<HotelShortDto>> searchHotels(String name, String brand, String city,
+                                                            String country, Set<String> amenities, Pageable pageable) {
+        return ResponseEntity.ok(hotelService.searchHotels(name, brand, city, country, amenities, pageable));
     }
 
     @Override

@@ -75,12 +75,16 @@ class HotelServiceImplTest {
         @Test
         void shouldReturnPageFromRepository() {
             Pageable pageable = PageRequest.of(0, 10);
-            Page<HotelShortDto> expected = new PageImpl<>(List.of(hotelShortDto));
-            when(hotelRepository.findAll(pageable).map(hotelMapper::toShortDto)).thenReturn(expected);
+
+            Page<Hotel> hotelPage = new PageImpl<>(List.of(hotel));
+            when(hotelRepository.findAll(pageable)).thenReturn(hotelPage);
+
+            when(hotelMapper.toShortDto(hotel)).thenReturn(hotelShortDto);
 
             Page<HotelShortDto> actual = hotelService.readAllHotels(pageable);
 
-            assertThat(actual).isSameAs(expected);
+            assertThat(actual).hasSize(1);
+            assertThat(actual.getContent()).containsExactly(hotelShortDto);
             verify(hotelRepository).findAll(pageable);
         }
 
@@ -309,37 +313,40 @@ class HotelServiceImplTest {
 
         @Test
         void shouldReturnMappedList() {
-            when(hotelRepository.findAll(any(Specification.class)))
-                    .thenReturn(List.of(hotel));
+            Page<Hotel> hotelPage = new PageImpl<>(List.of(hotel));
+            when(hotelRepository.findAll(any(Specification.class), any(Pageable.class)))
+                    .thenReturn(hotelPage);
 
             when(hotelMapper.toShortDto(hotel)).thenReturn(hotelShortDto);
 
-            List<HotelShortDto> actual = hotelService.searchHotels(
-                    "Grand", "Hilton", "Minsk", "Belarus", Set.of("wifi"));
+            Page<HotelShortDto> actual = hotelService.searchHotels(
+                    "Grand", "Hilton", "Minsk", "Belarus", Set.of("wifi"), Pageable.ofSize(10));
 
             assertThat(actual).hasSize(1);
-            assertThat(actual.get(0)).isEqualTo(hotelShortDto);
-            verify(hotelRepository).findAll(any(Specification.class));
+            assertThat(actual.getContent()).containsExactly(hotelShortDto);
+            verify(hotelRepository).findAll(any(Specification.class), any(Pageable.class));
         }
 
         @Test
         void shouldReturnEmptyListWhenNoMatches() {
-            when(hotelRepository.findAll(any(Specification.class)))
-                    .thenReturn(List.of());
+            when(hotelRepository.findAll(any(Specification.class), any(Pageable.class)))
+                    .thenReturn(Page.empty());
 
-            assertThat(hotelService.searchHotels(null, null, null, null, null))
-                    .isEmpty();
+            Page<HotelShortDto> result = hotelService.searchHotels(
+                    null, null, null, null, null, Pageable.unpaged());
+
+            assertThat(result).isEmpty();
             verifyNoInteractions(hotelMapper);
         }
 
         @Test
         void shouldPassSpecificationToRepository() {
-            when(hotelRepository.findAll(any(Specification.class)))
-                    .thenReturn(List.of());
+            when(hotelRepository.findAll(any(Specification.class), any(Pageable.class)))
+                    .thenReturn(Page.empty());
 
-            hotelService.searchHotels("n", "b", "c", "co", Set.of("a"));
+            hotelService.searchHotels("n", "b", "c", "co", Set.of("a"), Pageable.ofSize(10));
 
-            verify(hotelRepository).findAll(any(Specification.class));
+            verify(hotelRepository).findAll(any(Specification.class), any(Pageable.class));
         }
     }
 }

@@ -66,7 +66,7 @@ public interface HotelController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping("/search")
-    ResponseEntity<List<HotelShortDto>> searchHotels(
+    ResponseEntity<Page<HotelShortDto>> searchHotels(
             @Parameter(description = "Hotel name (partial match, case-insensitive)", example = "Hilton")
             @RequestParam(required = false) String name,
 
@@ -80,7 +80,10 @@ public interface HotelController {
             @RequestParam(required = false) String country,
 
             @Parameter(description = "Set of required amenities", example = "[\"Free WiFi\", \"Pool\"]")
-            @RequestParam(required = false) Set<String> amenities
+            @RequestParam(required = false) Set<String> amenities,
+
+            @Parameter(description = "Pagination parameters (page, size, sort)")
+            @PageableDefault(size = 10) Pageable pageable
     );
 
     @Operation(

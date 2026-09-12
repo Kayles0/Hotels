@@ -83,12 +83,12 @@ public class HotelServiceImpl implements HotelService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<HotelShortDto> searchHotels(String name, String brand, String city, String country, Set<String> amenities) {
+    public Page<HotelShortDto> searchHotels(String name, String brand, String city,
+                                            String country, Set<String> amenities, Pageable pageable) {
         Specification<Hotel> spec = HotelSpecification.search(name, brand, city, country, amenities);
 
-        return hotelRepository.findAll(spec).stream()
-                .map(hotelMapper::toShortDto)
-                .toList();
+        return hotelRepository.findAll(spec, pageable)
+                .map(hotelMapper::toShortDto);
     }
 
     private Hotel readById(Long id) {
