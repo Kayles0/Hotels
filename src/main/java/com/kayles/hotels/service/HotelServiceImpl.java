@@ -28,11 +28,13 @@ public class HotelServiceImpl implements HotelService {
     private final HotelMapper hotelMapper;
 
     @Transactional(readOnly = true)
+    @Override
     public Page<HotelShortDto> readAllHotels(Pageable pageable) {
         return hotelRepository.findAll(pageable).map(hotelMapper::toShortDto);
     }
 
     @Transactional(readOnly = true)
+    @Override
     public HotelDto readHotelById(Long id) {
         return hotelMapper.toDto(
                 readById(id)
@@ -40,6 +42,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Transactional
+    @Override
     public HotelShortDto createHotel(HotelCreateDto dto) {
         if (hotelRepository.existsByName(dto.name())) {
             throw new DuplicateException("Hotel with name " + dto.name() + " already exists");
@@ -51,6 +54,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Transactional
+    @Override
     public HotelDto addAmenities(Long id, Set<String> amenities) {
         Hotel hotel = readById(id);
         hotel.getAmenities().addAll(amenities);
@@ -60,6 +64,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Transactional(readOnly = true)
+    @Override
     public Map<String, Long> getHistogram(String param) {
         List<Object[]> results = switch (param.toLowerCase()) {
             case "brand" -> hotelRepository.getHistogramByBrand();
@@ -77,6 +82,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<HotelShortDto> searchHotels(String name, String brand, String city, String country, Set<String> amenities) {
         Specification<Hotel> spec = HotelSpecification.search(name, brand, city, country, amenities);
 
