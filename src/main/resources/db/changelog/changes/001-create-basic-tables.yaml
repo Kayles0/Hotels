@@ -1,0 +1,85 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1789228278768-1
+      author: Kayles
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: hotel_id
+                  type: BIGINT
+              - column:
+                  name: amenities_name
+                  type: VARCHAR(255)
+            tableName: hotel_amenities
+  - changeSet:
+      id: 1789228278768-2
+      author: Kayles
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_hotels
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(40)
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: brand
+                  type: VARCHAR(255)
+              - column:
+                  name: house_number
+                  type: BIGINT
+              - column:
+                  name: street
+                  type: VARCHAR(255)
+              - column:
+                  name: city
+                  type: VARCHAR(255)
+              - column:
+                  name: country
+                  type: VARCHAR(255)
+              - column:
+                  name: post_code
+                  type: VARCHAR(255)
+              - column:
+                  name: phone
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: check_in
+                  type: TIME(6)
+              - column:
+                  name: check_out
+                  type: TIME(6)
+            tableName: hotels
+  - changeSet:
+      id: 1789228278768-3
+      author: Kayles
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: hotel_id
+            baseTableName: hotel_amenities
+            constraintName: fk_hotel_amenities_on_hotel
+            referencedColumnNames: id
+            referencedTableName: hotels
+
