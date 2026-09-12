@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,7 +46,7 @@ public class HotelMapperTest {
                 addressDto,
                 contactsDto,
                 arrivalDto,
-                List.of("WiFi", "Pool")
+                Set.of("WiFi", "Pool")
         );
 
         Hotel entity = hotelMapper.toEntity(dto);
