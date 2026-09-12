@@ -29,7 +29,7 @@ public class HotelServiceImpl implements HotelService {
 
     @Transactional(readOnly = true)
     public Page<HotelShortDto> readAllHotels(Pageable pageable) {
-        return hotelRepository.readAllHotels(pageable);
+        return hotelRepository.findAll(pageable).map(hotelMapper::toShortDto);
     }
 
     @Transactional(readOnly = true)

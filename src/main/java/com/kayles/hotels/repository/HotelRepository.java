@@ -1,9 +1,6 @@
 package com.kayles.hotels.repository;
 
-import com.kayles.hotels.dto.HotelShortDto;
 import com.kayles.hotels.entity.Hotel;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -14,8 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface HotelRepository extends JpaRepository<Hotel, Long>, JpaSpecificationExecutor<Hotel> {
-
-    Page<HotelShortDto> readAllHotels(Pageable pageable);
 
     Optional<Hotel> readById(Long id);
 

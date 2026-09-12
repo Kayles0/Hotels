@@ -76,18 +76,18 @@ class HotelServiceImplTest {
         void shouldReturnPageFromRepository() {
             Pageable pageable = PageRequest.of(0, 10);
             Page<HotelShortDto> expected = new PageImpl<>(List.of(hotelShortDto));
-            when(hotelRepository.readAllHotels(pageable)).thenReturn(expected);
+            when(hotelRepository.findAll(pageable).map(hotelMapper::toShortDto)).thenReturn(expected);
 
             Page<HotelShortDto> actual = hotelService.readAllHotels(pageable);
 
             assertThat(actual).isSameAs(expected);
-            verify(hotelRepository).readAllHotels(pageable);
+            verify(hotelRepository).findAll(pageable);
         }
 
         @Test
         void shouldReturnEmptyPage() {
             Pageable pageable = PageRequest.of(0, 10);
-            when(hotelRepository.readAllHotels(pageable)).thenReturn(Page.empty());
+            when(hotelRepository.findAll(pageable)).thenReturn(Page.empty());
 
             assertThat(hotelService.readAllHotels(pageable)).isEmpty();
         }
